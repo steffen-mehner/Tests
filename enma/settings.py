@@ -18,7 +18,13 @@ class ProdConfig(Config):
     """Production configuration."""
     ENV = 'prod'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'  # TODO: Change me
+    
+    DB_USER = os_env['OPENSHIFT_POSTGRESQL_DB_USERNAME']
+    DB_PASSWORD = os_env['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
+    DB_HOST = os_env['OPENSHIFT_POSTGRESQL_DB_HOST']
+    DB_PORT = os_env['OPENSHIFT_POSTGRESQL_DB_PORT']
+    DB_NAME = 'enma'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://' + DB_USER + ':' + DB_PASSWORD + '@' + DB_HOST + ':' + DB_PORT + '/' + DB_NAME
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
 
 
