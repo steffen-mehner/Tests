@@ -1,6 +1,6 @@
-===============================
-Entitlement Management
-===============================
+=============================
+Entitlement Management WebApp
+=============================
 
 Manage entitlements of users
 
