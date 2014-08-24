@@ -1,14 +1,16 @@
 <footer>
   <small>
   <ul class="company">
-    <li>© Volker Kempert</li>
+    <li>©2014 Volker Kempert</li>
   </ul>
 
     <ul class="footer-nav">
 
+      <li><a href="{{ url_for('public.terms') }}">Terms of Use</a></li>
+      <li><a href="{{ url_for('public.privacy') }}">Privacy</a></li>
+      <li><a href="{{ url_for('public.legal') }}">Legal Notice</a></li>
       <li><a href="{{ url_for('public.about') }}">About</a></li>
-
-      <li><a href="mailto:volker.kempert@pixmeter.com">Contact</a></li>
+      <li><a href="{{ url_for('public.contact') }}">Contact</a></li>
     </ul>
   </small>
 </footer>

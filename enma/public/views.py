@@ -32,12 +32,14 @@ def home():
             flash_errors(form)
     return render_template("public/home.html", form=form)
 
+
 @blueprint.route('/logout/')
 @login_required
 def logout():
     logout_user()
     flash('You are logged out.', 'info')
     return redirect(url_for('public.home'))
+
 
 @blueprint.route("/register/", methods=['GET', 'POST'])
 def register():
@@ -53,7 +55,37 @@ def register():
         flash_errors(form)
     return render_template('public/register.html', form=form)
 
+
+@blueprint.route("/help/")
+def help():
+    form = LoginForm(request.form)
+    return render_template("public/help.html", form=form)
+
+
 @blueprint.route("/about/")
 def about():
     form = LoginForm(request.form)
     return render_template("public/about.html", form=form)
+
+
+@blueprint.route("/contact/")
+def contact():
+    form = LoginForm(request.form)
+    return render_template("public/contact.html", form=form)
+
+
+@blueprint.route("/legal/")
+def legal():
+    form = LoginForm(request.form)
+    return render_template("public/legal.html", form=form)
+
+
+@blueprint.route("/privacy/")
+def privacy():
+    form = LoginForm(request.form)
+    return render_template("public/privacy.html", form=form)
+
+@blueprint.route("/terms/")
+def terms():
+    form = LoginForm(request.form)
+    return render_template("public/terms.html", form=form)

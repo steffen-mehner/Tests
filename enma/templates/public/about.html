@@ -1,11 +1,45 @@
-
 {% extends "layout.html" %}
+
+{% if not version %}   
+  {% set version = '-not-determined-' %}
+{%endif %}
 
 {% block content %}
 <div class="body-content">
     <div class="row">
       <h1>About</h1>
-      <p>This template was created by <a href="http://github.com/sloria/">Steven Loria</a> for use with the <a href="http://github.com/audreyr/cookiecutter/">cookiecutter</a> package by <a href="http://github.com/audreyr/">Audrey Roy</a>.</p>
+      <p>
+      Software is maintained at: 
+      <a href="https://github.com/volker-kempert/enma">
+        https://github.com/volker-kempert/enma </a>.
+      Feel free to join/fork.
+      </p>
+      <p>
+      This deployment is of version: <em>{{version}}</em>.
+      </p>
+
+      <h2>Credits</h2>
+
+      <p>
+      This application is based on the 
+      <a href="http://flask.pocoo.org/">Flask web framework </a> including
+      <a href="http://jinja.pocoo.org/docs/dev/"> jinja2 </a> and
+      <a href="https://wtforms.readthedocs.org/en/latest/"> WTForms</a>.
+      </p>
+      <p>
+      It also facilitates
+      <a href="http://getbootstrap.com/">Bootstrap 3, </a>
+      <a href="http://jquery.com/">jQuery 2, </a>,
+      <a href="http://www.sqlalchemy.org/">SQLAlchemy</a> and
+      <a href="http://fontawesome.io/"> Font Awesome by Dave Gandy</a>. 
+      </p>
+
+      <p>
+      This application is initially based on the
+      <a href="http://github.com/audreyr/cookiecutter/">cookiecutter</a>
+      flask template from 
+      <a href="http://github.com/sloria/">Steven Loria</a>
+      </p>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'layout.html' %}
+{% block title %}Help{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Help</h1>
+</div>
+
+
+<h1> Using the RESTful API </h1>
+
+The RESTful API is characterized by:
+<ul>
+<li> API exposure over http/https (https recommended) protocol</li>
+<li> Convenient URL structure following REST conventions</li>
+<li> Json formatting of data</li>
+<li> Http protocol typical Return codes </li>
+<li> Always requires authentication </li>
+</ul>
+
+<h2> Examples </h2>
+
+<p> The RESTful API can access  using any means of http(s) protocol handling tools.
+libcurl is well-known and its curl CLI front-end is used to visualize some
+example calls. </p>
+
+<div class="highlight"><pre><code class="html">
+&gt; curl --basic --user usertoken http://localhost:5000/rest/v1.0/entitlements
+{
+  "entitlements": [
+    {
+      "description": "Use service one", 
+      "expiry": "2014-09-20", 
+      "name": "service-one", 
+      "status": "granted", 
+      "type": "service-one"
+    }, 
+    {
+      "capacity": 500, 
+      "description": "Use service two", 
+      "expiry": "2014-09-20", 
+      "name": "service-two", 
+      "status": "rewoked", 
+      "type": "service-two"
+    }
+  ]
+}
+</span></code></pre></div>
+The base url of this web application is <em>http://localhost:5000</em>.
+The path portion to the REST call is <em>/rest/v1.0/entitlements</em>
+The access method is <em>GET</em> the API delivers all entitlements assigned to
+the users and its data. Basic Authentication using API Tokes is used.
+The server log is as follow
+<div class="highlight"><pre><code class="html">
+127.0.0.1 - - [30/Aug/2014 09:10:04] "GET /rest/v1.0/entitlements HTTP/1.1" 200 -
+</span></code></pre></div>
+
+<p>
+Another example is to get a new access token.
+</p>
+<div class="highlight"><pre><code class="html">
+&gt; curl --basic --user usertoken --request PUT 127.0.0.1:5000/rest/v1.0/users/token
+{
+  "expiry": "20140901", 
+  "token": "abcdefg-new-token"
+}
+</span></code></pre></div>
+<p> The server log output is: </p>
+<div class="highlight"><pre><code class="html">
+127.0.0.1 - - [30/Aug/2014 09:45:52] "PUT /rest/v1.0/users/token HTTP/1.1" 201 -
+</span></code></pre></div>
+
+
+<h2> Authentication </h2>
+
+
+<h2> The URL Scheme </h2>
+
+<h2> API Version v1.0 Reference </h2>
+
+<h3> Get API token </h3>
+
+<p> Deliver the actual token of the user and the token's expiry timestamp </p>
+<table class="table table-hover">
+<tr><td> URL </td><td> /users/token </td></tr>
+<tr><td> Method </td><td> GET </td></tr>
+<tr><td> Return-Code </td><td> 200</td></tr>
+<tr><td> Return-Data </td>
+<td> token: token value 
+<br/> expiry: expiry timestamp 
+</td></tr>
+</table>
+
+<h3> Create new API token </h3>
+
+<p> Create a new API token and deliver the new token of the user and the
+new token's expiry timestamp. The previous token is deleted and invalid
+after that call </p>
+<table class="table table-hover">
+<tr><td> URL </td><td> /users/token </td></tr>
+<tr><td> Method </td><td> PUT </td></tr>
+<tr><td> Return-Code </td><td> 201</td></tr>
+<tr><td> Return-Data </td>
+<td> token: token value 
+<br/> expiry: expiry timestamp 
+</td></tr>
+</table>
+
+
+{% endblock %}
