@@ -1,0 +1,123 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Home of {{ current_user.username }} </h1>
+
+    <h2><i class="fa fa-file-o"> </i> Apply for an Entitlement </h2>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <a href="{{ url_for('user.home') }}">
+      <h3><i class="fa fa-certificate"></i> Service One</h3></a>
+      <p> Access to service one do this and that. and more </p>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url_for('user.home') }}">
+      <h3><i class="fa fa-certificate"></i> Service Two</h3></a>
+      <p> Access to service two do this and that. and more </p>
+    </div>
+  </div><!-- /.row -->
+
+
+    <h2><i class="fa fa-folder-open-o"> </i> Pending Entitlements </h2>
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th> Status </th>
+        <th> Expiry Date/Duration </th>
+        <th> Name </th>
+        <th> Description and Parameter </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> Pending </td>
+            <td> 1 Month </td>
+            <td> service-three </td>
+            <td> Access service three </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <h2><i class="fa fa-folder-open"> </i> Your Entitlements </h2>
+    
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th> Status </th>
+        <th> Expiry Date </th>
+        <th> Name </th>
+        <th> Description and Parameter </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> Granted </td>
+            <td> 2014-12-31 </td>
+            <td> service-one </td>
+            <td> Access service one at unlimited volume; Max access per day 500 </td>
+        </tr>
+        <tr>
+            <td> Revoked </td>
+            <td> 2014-11-30 </td>
+            <td> service-two </td>
+            <td> Access service two </td>
+        </tr>
+        <tr>
+            <td> Expired </td>
+            <td> 2014-05-20 </td>
+            <td> service-three </td>
+            <td> Read Access service three </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <h2> <i class="fa fa-history"> </i> Access History </h2>
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th> Timestamp </th>
+        <th> Entitlement </th>
+        <th> Action </th>
+        <th> Result </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> 2014-08-20 14:42:15 </td>
+            <td> service-one </td>
+            <td> API query</td>
+            <td> Valid </td>
+        </tr>
+        <tr>
+            <td> 2014-08-20 14:41:53 </td>
+            <td> service-one </td>
+            <td> API query</td>
+            <td> Valid </td>
+        </tr>
+        <tr>
+            <td> 2014-08-20 13:10:23 </td>
+            <td> service-two </td>
+            <td> API query</td>
+            <td> Invalid </td>
+        </tr>
+        <tr>
+            <td> 2014-08-19 13:10:23 </td>
+            <td> service-two </td>
+            <td> Revoke </td>
+            <td> Not applicable </td>
+        </tr>
+        <tr>
+            <td> 2014-08-17 13:10:23 </td>
+            <td> service-two </td>
+            <td> API query</td>
+            <td> Valid </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <a href="{{ url_for('user.home') }}"> More ... </a>
+
+{% endblock %}

@@ -2,6 +2,8 @@
 import datetime as dt
 
 from flask.ext.login import UserMixin
+from itsdangerous  import URLSafeSerializer, TimestampSigner
+from flask import current_app
 
 from enma.extensions import bcrypt
 from enma.database import (
@@ -51,6 +53,37 @@ class User(UserMixin, SurrogatePK, Model):
 
     def check_password(self, value):
         return bcrypt.check_password_hash(self.password, value)
+
+    def has_role(self, role_name):
+        def role(x):
+            return x.name
+            
+        print 'roles: ', str(self.roles)
+        role_names = map(lambda x : x.name, self.roles)
+        print 'roles:', str(role_names)
+        result = role_name in role_names
+        print 'result: ', str(result)
+        return result
+
+    def generate_auth_token(self, expiration):
+        s = URLSafeSerializer(current_app.config['SECRET_KEY'],
+                       signer=TimestampSigner,
+                       )
+        return s.dumps( (self.username, expiration) )
+
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = URLSafeSerializer(current_app.config['SECRET_KEY'],
+                       signer=TimestampSigner,
+                       )
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        return User.query.get(data[0])
+
+
 
     @property
     def full_name(self):

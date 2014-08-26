@@ -1,0 +1,27 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container-narrow">
+        <h1 class="page-header"><i class="fa fa-edit"></i> Profile </h1>
+
+        <form id="editForm" class="form form-register" method="POST"
+              action="" role="form">
+            {{ edit_form.hidden_tag() }}
+            {{ edit_form.username() }}
+            <div class="form-group">
+                {{edit_form.firstname.label}}
+                {{edit_form.firstname(placeholder="First Name", class_="form-control")}}
+            </div>
+            <div class="form-group">
+                {{edit_form.lastname.label}}
+                {{edit_form.lastname(placeholder="Last Name", class_="form-control")}}
+            </div>
+            <div class="form-group">
+                {{edit_form.email.label}}
+                {{edit_form.email(placeholder="Email", class_="form-control")}}
+            </div>
+            {{edit_form.apply(class_="btn btn-default btn-submit")}}
+        </form>
+    </div>
+{% endblock %}

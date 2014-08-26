@@ -10,6 +10,7 @@ from enma.app import create_app
 from enma.user.models import User
 from enma.settings import DevConfig, ProdConfig
 from enma.database import db
+from enma.user.admin import establish_admin_defaults
 
 if os.environ.get("ENMA_ENV") == 'prod':
     app = create_app(ProdConfig)
@@ -31,6 +32,15 @@ def test():
     import pytest
     exit_code = pytest.main(['tests', '--verbose'])
     return exit_code
+
+@manager.command
+def establish_admin():
+    """
+    Create the admin user or reset the admin to factory defaults
+    I.e. the admin user password is set to 'admin' and the admin user
+    has the role 'SiteAdmin'.
+    """
+    establish_admin_defaults()
 
 manager.add_command('server', Server())
 manager.add_command('shell', Shell(make_context=_make_context))

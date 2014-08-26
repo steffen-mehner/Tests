@@ -60,10 +60,13 @@
 
 {% include "footer.html" %}
 
+
+
 <!-- JavaScript at the bottom for fast page loading -->
 {% assets "js_all" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {% endassets %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% block js %}{% endblock %}
 <!-- end scripts -->
 {% endblock %}
