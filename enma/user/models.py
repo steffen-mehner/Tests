@@ -52,6 +52,19 @@ class User(UserMixin, SurrogatePK, Model):
     def check_password(self, value):
         return bcrypt.check_password_hash(self.password, value)
 
+    def has_role(self, role_name):
+        def role(x):
+            return x.name
+            
+        print 'roles: ', str(self.roles)
+        role_names = map(lambda x : x.name, self.roles)
+        print 'roles:', str(role_names)
+        result = role_name in role_names
+        print 'result: ', str(result)
+        return result
+
+
+
     @property
     def full_name(self):
         return "{0} {1}".format(self.first_name, self.last_name)

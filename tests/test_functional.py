@@ -7,8 +7,11 @@ import pytest
 from flask import url_for
 
 
-from enma.user.models import User
+from enma.user.models import User, Role
+from enma.database import db
 from .factories import UserFactory
+from enma.user.admin import establish_admin_defaults
+from enma.user.admin import establish_and_get_site_admin_role
 
 
 class TestLoggingIn:
@@ -110,3 +113,61 @@ class TestRegistering:
         res = form.submit()
         # sees error
         assert "Username already registered" in res
+
+
+def does_user_have_role(user, role_name):
+        found = False
+        for role in user.roles:
+            if role.name == role_name:
+                found = True
+        return found
+
+class TestEstablishAdminDefaults:
+
+    def test_create_if_not_exists(self, user, testapp):
+        admin = User.query.filter(User.username=='admin').first()
+        if admin:
+            db.session.delete(admin)
+            db.session.commit()
+        # no admin user exists anymore
+
+        establish_admin_defaults()
+        admin = User.query.filter(User.username=='admin').first()
+        assert admin # admin user exists
+        assert admin.check_password('admin') # has the password admin
+
+    def test_reset_passwd_if_exists(self, user, testapp):
+        admin = User.query.filter(User.username=='admin').first()
+        if admin:
+            admin.set_password('not-admin')
+        else:
+            admin = User('admin', 'foo@test.com', password='not-admin')
+        db.session.add(admin)
+        db.session.commit()
+
+        establish_admin_defaults()
+        admin = User.query.filter(User.username=='admin').first()
+        assert admin # admin user exists
+        assert admin.check_password('admin') # has the password admin
+
+    def test_set_site_admin_role(self, user, testapp):
+        admin = User.query.filter(User.username=='admin').first()
+        if not admin:
+            admin = User('admin', 'foo@test.com')
+        db.session.add(admin)
+        db.session.commit()
+
+        establish_admin_defaults()
+        retrieved = User.query.filter(User.username=='admin').first()
+        assert retrieved 
+        assert does_user_have_role(retrieved, 'SiteAdmin')
+
+    def test_site_admin_role_exists(self, user, testapp):
+        site_admin_role = establish_and_get_site_admin_role()
+        roles = Role.query.all()
+        found = False
+        for role in roles:
+            if role.name == 'SiteAdmin':
+                found = True
+                assert role == site_admin_role
+        assert found
