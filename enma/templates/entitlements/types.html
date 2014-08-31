@@ -1,0 +1,96 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    <h1><i class="fa fa-certificate"> </i>Entitlement Types </h1>
+
+
+    <p><a class="btn btn-default" href="#" role="button">
+    <i class="fa fa-plus-circle"> </i> Create a new Entitlement Type &raquo;
+    </a></p>
+
+    <table class="table">
+    <thead>
+    <tr>
+        <th> Action </th>
+        <th> Type </th>
+        <th> Expiry Date/Duration </th>
+        <th colspan="2"> Description</th>
+    </tr>
+    <tr>
+        <th>  </th>
+        <th> Parameter </th>
+        <th> Type </th>
+        <th> Fixed/variable </th>
+        <th> Value/Range/Set</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> 
+                <a href="#" <i class="fa fa-gears"> </a>
+                <a href="#" <i class="fa fa-edit"> </a>
+                <a href="#" <i class="fa fa-trash-o"> </a>
+            </td> 
+            <td> simple </td>
+            <td> 1 Month </td>
+            <td colspan="2"> Simple entitlement type without
+                parameter; one month valid after activation </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td> 
+                <a href="#" <i class="fa fa-gears"> </a>
+                <a href="#" <i class="fa fa-edit"> </a>
+                <a href="#" <i class="fa fa-trash-o"> </a>
+            </td> 
+            <td> fixed-parameters </td>
+            <td> Fixed </td> 
+            <td colspan="2"> Entitlement type with fixed
+                parameter with a fixed expiry date</td>
+        </tr>
+        <tr>
+            <td/>
+            <td> param-one </td>
+            <td> Boolean </td>
+            <td> Fixed </td>
+            <td> True </td>
+        </tr>
+        <tr>
+            <td/>
+            <td> param-two </td>
+            <td> Number </td>
+            <td> Fixed </td>
+            <td> 500 </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td> 
+                <a href="#" <i class="fa fa-gears"> </a>
+                <a href="#" <i class="fa fa-edit"> </a>
+                <a href="#" <i class="fa fa-trash-o"> </a>
+            </td> 
+            <td> flex-parameters </td>
+            <td> Never </td>
+            <td colspan="2"> Entitlement type with variable Parameters
+                parameter that never expires</td>
+        </tr>
+        <tr>
+            <td/>
+            <td> param-three </td>
+            <td> Boolean </td>
+            <td> Variable </td>
+            <td> True (default) </td>
+        </tr>
+        <tr>
+            <td/>
+            <td> param-four </td>
+            <td> Number </td>
+            <td> Variable </td>
+            <td> [0,5000] 500 (default) </td>
+        </tr>
+    </tbody>
+    </table>
+
+{% endblock %}

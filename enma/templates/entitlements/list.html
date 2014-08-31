@@ -1,0 +1,66 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    <h1><i class="fa fa-certificate"> </i> Entitlements </h2> </h1>
+
+    <p><a class="btn btn-default" href="#" role="button">
+    <i class="fa fa-plus-circle"> </i> Create a new Entitlement &raquo;
+    </a></p>
+    
+    <p>
+    Multipe Options to sort by expiry, user, status
+    </p>
+    <p>
+    Options to "grand, revoke, prolong, delete; no options to modify parameter
+    </p>
+
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th> Status </th>
+        <th> User </th>
+        <th> Expiry Date/Duration </th>
+        <th> Name </th>
+        <th> Type </th>
+        <th> Parameter 1 </th>
+        <th> Parameter 2 </th>
+        <th> Parameter 3 </th>
+        <th> Parameter 4 </th>
+        <th> Parameter 5 </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> Created </td>
+            <td> User-1  </td>
+            <td> 1 month </td>
+            <td> service-one </td>
+            <td> service-one </td>
+            <td> Total volume: unlimited </td>
+            <td> Daily max requests: 500 </td>
+        </tr>
+        <tr>
+            <td> Granted </td>
+            <td> User-2  </td>
+            <td> 2014-10-30 </td>
+            <td> service-two </td>
+            <td> service-two </td>
+            <td> Function code: ABCDE </td>
+        </tr>
+        <tr>
+            <td> Revoked </td>
+            <td> User-3  </td>
+            <td> 2014-09-02 </td>
+            <td> service-four-type </td>
+            <td> service-four-custom </td>
+            <td> Read volume: 700.000 </td>
+            <td> function-one: yes </td>
+            <td> function-two: no </td>
+            <td> function-three: yes </td>
+            <td> Daily max requests: 500 </td>
+        </tr>
+    </tbody>
+    </table>
+
+{% endblock %}

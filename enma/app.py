@@ -12,7 +12,7 @@ from enma.extensions import (
     migrate,
     debug_toolbar,
 )
-from enma import public, user
+from enma import public, user, entitlement
 
 
 def create_app(config_object=ProdConfig):
@@ -43,6 +43,8 @@ def register_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
+    app.register_blueprint(entitlement.views.blueprint)
+    app.register_blueprint(entitlement.rest.rest)
     return None
 
 
