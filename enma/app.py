@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 '''The app module, containing the app factory function.'''
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request, jsonify
 from enma.settings import ProdConfig
 from enma.assets import assets
 from enma.extensions import (
@@ -12,7 +11,7 @@ from enma.extensions import (
     migrate,
     debug_toolbar,
 )
-from enma import public, user, entitlement
+from enma import public, user, entitlement, rest
 
 
 def create_app(config_object=ProdConfig):
@@ -44,7 +43,7 @@ def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
     app.register_blueprint(entitlement.views.blueprint)
-    app.register_blueprint(entitlement.rest.rest)
+    app.register_blueprint(rest.api)
     return None
 
 
@@ -52,7 +51,21 @@ def register_errorhandlers(app):
     def render_error(error):
         # If a HTTPException, pull the `code` attribute; default to 500
         error_code = getattr(error, 'code', 500)
+        if request.accept_mimetypes.accept_json and \
+                not request.accept_mimetypes.accept_html:
+            if error_code == 401:
+                response = jsonify({'error': 'unauthorized'})
+            elif error_code == 404:
+                response = jsonify({'error': 'not found'})
+            elif error_code == 500:
+                response = jsonify({'error': 'internal server error'})
+            response.status_code = error_code
+            return response
+        if error_code == 405:
+            response = jsonify({'error': 'method not supported'})
+            response.status_code = error_code
+            return response
         return render_template("{0}.html".format(error_code)), error_code
-    for errcode in [401, 404, 500]:
+    for errcode in [401, 404, 405, 500]:
         app.errorhandler(errcode)(render_error)
     return None

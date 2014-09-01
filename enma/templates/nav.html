@@ -21,13 +21,25 @@
     <ul class="nav navbar-nav">
         {% if current_user and current_user.is_authenticated() %}
             <li><a class="navbar-link" href="{{ url_for('user.home') }}">
-                Home</a></li>
+                <i class="fa fa-home"></i> Home</a></li>
             {% if current_user.has_role("SiteAdmin") %}
             <li><a class="navbar-link" href="{{ url_for('user.members') }}">
-                Users</a></li>
+                <i class="fa fa-users"></i> Users</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-certificate"></i> Entitlements
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ url_for('entitlement.types') }}"> Entitlement Types</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ url_for('entitlement.requests') }}"> Grant Request </a></li>
+                <li><a href="{{ url_for('entitlement.list') }}"> All Entitlements </a></li>
+              </ul>
+            </li>
+
             {% endif %}
         {% endif %}
-      <li><a href="{{ url_for('public.help') }}">Help</a></li>
+      <li><a href="{{ url_for('public.help') }}"><i class="fa fa-question-circle"></i> Help</a></li>
     </ul>
     {% if current_user and current_user.is_authenticated() %}
     <ul class="nav navbar-nav navbar-right">

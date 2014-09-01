@@ -2,7 +2,8 @@
 import datetime as dt
 
 from flask.ext.login import UserMixin
-from itsdangerous  import URLSafeSerializer, TimestampSigner
+# from itsdangerous  import URLSafeSerializer, TimestampSigner
+from itsdangerous  import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 
 from enma.extensions import bcrypt
@@ -66,22 +67,19 @@ class User(UserMixin, SurrogatePK, Model):
         return result
 
     def generate_auth_token(self, expiration):
-        s = URLSafeSerializer(current_app.config['SECRET_KEY'],
-                       signer=TimestampSigner,
-                       )
-        return s.dumps( (self.username, expiration) )
+        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
+        return s.dumps( (self.username) )
 
 
     @staticmethod
     def verify_auth_token(token):
-        s = URLSafeSerializer(current_app.config['SECRET_KEY'],
-                       signer=TimestampSigner,
-                       )
+        s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
+            print 'data: ', str(data)
         except:
             return None
-        return User.query.get(data[0])
+        return User.query.filter_by(username=data).first()
 
 
 

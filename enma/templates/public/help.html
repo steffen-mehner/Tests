@@ -74,23 +74,32 @@ Another example is to get a new access token.
 
 <h2> Authentication </h2>
 
+<p> All requests require authentication. HTTP basic authentication is
+required. Thus, it is strongly recommended to run the application over
+HTTPS protocol.</p>
+
+<p>Supported credentials are either 
+<em> user:password </em> or <em>token</em> </p>.
 
 <h2> The URL Scheme </h2>
 
+The REST api URL is composed as follow:
+
+<p>
+<em>protocol hostname [ :port ] / api-base-url rest-obj-path.</em>
+</p>
+
+<p>
+http://192.168.1.200:8090/rest/v1.0/token
+</p>
+
 <h2> API Version v1.0 Reference </h2>
+
+<p> The api-base-url is is <em>/rest/v1.0</em>. </p>
+
 
 <h3> Get API token </h3>
 
-<p> Deliver the actual token of the user and the token's expiry timestamp </p>
-<table class="table table-hover">
-<tr><td> URL </td><td> /users/token </td></tr>
-<tr><td> Method </td><td> GET </td></tr>
-<tr><td> Return-Code </td><td> 200</td></tr>
-<tr><td> Return-Data </td>
-<td> token: token value 
-<br/> expiry: expiry timestamp 
-</td></tr>
-</table>
 
 <h3> Create new API token </h3>
 
@@ -98,14 +107,33 @@ Another example is to get a new access token.
 new token's expiry timestamp. The previous token is deleted and invalid
 after that call </p>
 <table class="table table-hover">
-<tr><td> URL </td><td> /users/token </td></tr>
+<tr><td> URL </td><td> /token </td></tr>
 <tr><td> Method </td><td> PUT </td></tr>
 <tr><td> Return-Code </td><td> 201</td></tr>
-<tr><td> Return-Data </td>
-<td> token: token value 
-<br/> expiry: expiry timestamp 
-</td></tr>
+<tr><td> Return-Data </td> <td> token, expiry </td></tr>
 </table>
 
+<h3> Get all entitlements </h3>
+
+<p> Get the list of all entitlements that are assigned to the requesting
+user.</p>
+<table class="table table-hover">
+<tr><td> URL </td><td> /entitlements </td></tr>
+<tr><td> Method </td><td> GET </td></tr>
+<tr><td> Return-Code </td><td> 200</td></tr>
+<tr><td> Return-Data </td><td> list of entitlements </tr>
+</table>
+
+<h3> Get all entitlements </h3>
+
+<p> Get a specific valid entitlement that is assigned to the requesting
+user.</p>
+<table class="table table-hover">
+<tr><td> URL </td><td> /entitlements/<em>entitlement-name</em> </td></tr>
+<tr><td> Method </td><td> GET </td></tr>
+<tr><td> Return-Code (OK) </td><td> 200 </td></tr>
+<tr><td> Return-Data (OK) </td><td> the entitlement </tr>
+<tr><td> Return-Code (fail) </td><td> 401 </td></tr>
+</table>
 
 {% endblock %}

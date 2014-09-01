@@ -3,6 +3,7 @@ import time
 import datetime
 
 from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import current_app
 from flask.ext.login import login_required, current_user, logout_user
 
 from enma.user.models import User
@@ -18,6 +19,8 @@ blueprint = Blueprint("user", __name__, url_prefix='/users',
 @blueprint.route("/")
 @login_required
 def home():
+    current_app.logger.error('token called')
+
     return render_template("users/home.html")
 
 @blueprint.route("/members")
