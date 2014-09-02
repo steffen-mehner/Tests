@@ -11,17 +11,14 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="{{ url_for('public.home') }}">
-
-      Entitlement Management
-
-    </a>
+        <i class="fa fa-home"></i></a>
   </div>
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
         {% if current_user and current_user.is_authenticated() %}
             <li><a class="navbar-link" href="{{ url_for('user.home') }}">
-                <i class="fa fa-home"></i> Home</a></li>
+                <i class="fa fa-tachometer"></i> Dashboard </a></li>
             {% if current_user.has_role("SiteAdmin") %}
             <li><a class="navbar-link" href="{{ url_for('user.members') }}">
                 <i class="fa fa-users"></i> Users</a></li>
