@@ -6,6 +6,7 @@ from wtforms import ValidationError
 from .models import User
 from flask import flash
 
+
 class EmailExists(object):
     """
     WTF Validator that checks if an email address already exists.

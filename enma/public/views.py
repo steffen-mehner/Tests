@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 '''Public section, including homepage and signup.'''
+import datetime
 from flask import (Blueprint, request, render_template, flash, url_for,
                     redirect, session)
 from flask.ext.login import login_user, login_required, logout_user
 
 from enma.extensions import login_manager
-from enma.user.models import User
+from enma.user.models import User, AnonymousUser
 from enma.public.forms import LoginForm
 from enma.user.forms import RegisterForm
 from enma.utils import flash_errors
 from enma.database import db
 
 blueprint = Blueprint('public', __name__, static_folder="../static")
+
+login_manager.anonymous_user = AnonymousUser
+
 
 @login_manager.user_loader
 def load_user(id):

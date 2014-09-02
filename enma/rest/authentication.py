@@ -1,8 +1,7 @@
 from flask import g
-from flask.ext.login import AnonymousUserMixin as AnonymousUser
 
 from enma.extensions import auth
-from enma.user.models import User
+from enma.user.models import User, AnonymousUser
 
 from . import api
 from .errors import unauthorized, forbidden, not_found

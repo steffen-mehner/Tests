@@ -19,7 +19,7 @@
         {% if current_user and current_user.is_authenticated() %}
             <li><a class="navbar-link" href="{{ url_for('user.home') }}">
                 <i class="fa fa-tachometer"></i> Dashboard </a></li>
-            {% if current_user.has_role("SiteAdmin") %}
+            {% if current_user.is_administrator() %}
             <li><a class="navbar-link" href="{{ url_for('user.members') }}">
                 <i class="fa fa-users"></i> Users</a></li>
             <li class="dropdown">

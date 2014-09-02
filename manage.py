@@ -5,12 +5,15 @@ import sys
 import subprocess
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import MigrateCommand
+from flask.ext.assets import ManageAssets
+
 
 from enma.app import create_app
-from enma.user.models import User
+from enma.user.models import User, Role
 from enma.settings import DevConfig, ProdConfig
 from enma.database import db
 from enma.user.admin import establish_admin_defaults
+from enma.assets import assets
 
 if os.environ.get("ENMA_ENV") == 'prod':
     app = create_app(ProdConfig)
@@ -24,7 +27,7 @@ def _make_context():
     """Return context dict for a shell session so you can access
     app, db, and the User model by default.
     """
-    return {'app': app, 'db': db, 'User': User}
+    return {'app': app, 'db': db, 'User': User, 'Role': Role}
 
 @manager.command
 def test():
@@ -45,6 +48,8 @@ def establish_admin():
 manager.add_command('server', Server())
 manager.add_command('shell', Shell(make_context=_make_context))
 manager.add_command('db', MigrateCommand)
+manager.add_command("assets", ManageAssets(assets))
+
 
 if __name__ == '__main__':
     manager.run()

@@ -3,6 +3,11 @@
 # C extensions
 *.so
 
+# CSS/JS
+enma/static/css/common.css
+enma/static/js/common.js
+
+
 # Packages
 *.egg
 *.egg-info

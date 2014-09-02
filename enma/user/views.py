@@ -6,11 +6,13 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from flask import current_app
 from flask.ext.login import login_required, current_user, logout_user
 
-from enma.user.models import User
+from enma.decorators import permission_required
+from enma.user.models import User, Permission
 from enma.user.forms import DeleteForm, EditForm, ChangePasswordForm
 from enma.user.forms import RestTokenForm
 from enma.database import db
 from enma.utils import flash_errors
+
 
 blueprint = Blueprint("user", __name__, url_prefix='/users',
                         static_folder="../static")
@@ -25,6 +27,7 @@ def home():
 
 @blueprint.route("/members")
 @login_required
+@permission_required(Permission.READ_USER)
 def members():
     users = User.query.all()
     return render_template("users/members.html", users=users)
